@@ -1,0 +1,30 @@
+% !TeX root = ../libro.tex
+% !TeX encoding = utf8
+%
+%*******************************************************
+% Summary
+%*******************************************************
+
+\selectlanguage{english}
+\chapter{Summary}
+
+This work studies the application of deep learning techniques to music generation and the development of a software tool as an example of the application of those techniques, covering from the basic theoretical foundations to state of the art models and their application in the real musical composition process.
+
+In the first chapter we study the universal approximation theorem and its proof, which
+characterizes the representation capacities of neural networks. We review some preliminary results, including the Hahn-Banach theorem and the Riezs representation theorem. After that we prove the main theorem, which states that the set of functions represented by deep neural networks with one hidden layer of arbitrary size and sigmoid activation function are dense in the space of continuos functions over the $N$-dimensional unit hypercube, hence deep neural neworks with one hidden layer of arbitrary and sigmoid activation function are universal approximators. Then some of the existing generalizations and related results are mentioned, including different activation functions and fixing the hidden layer size but making the network depth arbitrary.
+
+The second chapter covers the basics of deep learning. We contextualize it in the machine learning domain and define its basic model: feedforward deep networks. A description of all the components of the model is providen, including cost function, output units and hidden units. Then we describe its functioning using the forward propagation algorithm and its optimization process which includes various grandient-based methods and the principal algorithm for the computation of the gradient of the network, the backpropagation algorithm.
+
+In the third chapter we discuss the deep learning techniques avaliable for sequencial data handling. We provide some examples of secuential data and its applications. Recurrent neural networks and its most important variants are introduced, including different network architectures, bidirectional recurrent networks and deep recurrent netwokds. We describe the problems they present with long-term information processing. Subsequently some more recent models to overcome these difficulties are introduced, including LSTM and GRU.
+
+The fourth chapter focuses on representation learning. Background information is discussed, including feature selection and classical representation learning techniques as PCA and others. After that we introduce a deep learning model for representation learning, the autoencoder. A comprehensive description of this model is providen, including its variants and particularities compared to deep feedforward networkds. Subsequently we study the generative version of that model, the variational autoencoder, based on variational inference. An explicit expression of its cost function is calculated, as well as an optimization method.
+
+The fifth chapter introduces MusicVAE, a model based on LSTM and variational autoencoder for the manipulation and generation of musical melodies. We describe its architecture, which consist in a variational autoencoder whose encoder and decoder have the structure of recurrent networkds. Then its training process is described, along with some useful properties derived from its use.
+
+Finally, in the sixth chapter the software tool AutoLoops is described. It consists on a web application for the generation of music melodies in MIDI format. Its development is based on the Magenta library for JavaScript, which includes an API for the MusicVAE pre-trained model. The interface for the program is based on HTML and CSS. Its use and inner working are explained in detail.
+
+Keywords: machine learning, deep learning, variational inference, variational autoencoder, music generation
+
+% Al finalizar el resumen en inglés, volvemos a seleccionar el idioma español para el documento
+\selectlanguage{spanish}
+\endinput

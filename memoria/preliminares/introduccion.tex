@@ -1,0 +1,48 @@
+% !TeX root = ../libro.tex
+% !TeX encoding = utf8
+%
+%*******************************************************
+% Introducción
+%*******************************************************
+
+% \manualmark
+% \markboth{\textsc{Introducción}}{\textsc{Introducción}}
+
+\chapter{Introducción}
+
+En este trabajo se estudia la aplicación de técnicas del ámbito del aprendizaje profundo en la generación de música y se desarrolla una herramienta software como ejemplo de aplicación de dichas técnicas.
+
+Uno de los grandes desafíos actuales de la Inteligencia Artificial es modelar datos de naturaleza compleja, como el lenguaje, la música o las imágenes. Mediante esta modelización pueden obtenerse nuevas formas de manipular y generar estos datos. Esto puede suponer una herramienta importante para el ámbito artístico.
+
+En la primera mitad del siglo XX se inventa el amplificador para aumentar el volumen al que podían emitir sonido instrumentos musicales como las guitarras. La degradación de estos equipos producía distorsión en la señal, lo cual en principio era un efecto indeseable. Sin embargo muchos artistas tomaron este defecto como herramienta de expresión. La introducción de nuevas herramientas tecnológicas en el ámbito artístico puede suponer efectos insospechados. Es por ello que la implantación de las técnicas de aprendizaje profundo puede llevar a nuevas formas de manipulación y expresión musical.
+
+La naturaleza de los datos musicales es eminentemente secuencial. Ya sea en forma de onda de sonido o de manera más abstracta como la representación en partituras, siempre se trata con secuencias de datos en el tiempo. Por ello el uso de técnicas específicas para el tratamiento de este tipo de datos será imprescindible.
+
+El aprendizaje de representaciones es un campo ampliamente explorado en el aprendizaje automático y supone una de las vías de investigación más importantes en la actualidad. Una representación sencilla de datos complejos, que pueda permitir su manipulación de manera intuitiva, puede resultar una herramienta muy importante para el trabajo de los artistas. Los modelos generativos, además de obtener una representación compacta, permiten la generación de nuevos datos. Esta puede resultar también una herramienta muy útil para la creación artística.
+
+Se marcan por tanto los siguientes objetivos para el trabajo.
+
+\begin{enumerate}
+\item Estudiar y demostrar que las redes neuronales son aproximadores universales.
+\item Estudiar las bases matemáticas del autoencoder variacional.
+\item Conocer los fundamentos del aprendizaje profundo y del tratameinto de secuencias.
+\item Estudiar el modelo MusicVAE para generación de música.
+\item Aplicar dicho modelo en una herramienta software.
+\end{enumerate}
+
+En el trabajo se recogen los fundamentos teóricos básicos del aprendizaje profundo, para después revisar las técnicas más relevantes para el modelado de secuencias y el aprendizaje de características. Por último se estudia un modelo de aprendizaje profundo especialmente diseñado para la codificación y generación de melodías musicales, y se realiza la implementación de una herramienta software para su aplicación en el contexto real de la composición musical.
+
+La herramienta permite cargar una melodía, extraer sus características y modificar las mismas para generar melodías nuevas. También permite exportar las nuevas melodías generadas en formato MIDI, facilitando su uso para la producción musical. Su principal pretensión es la de ser aplicable en el trabajo compositivo, y de hecho está ya siendo utilizada por varios artistas para la confección de obras. Algunas de ellas pueden encontrarse en \href{https://soundcloud.com/user-860813847/sets/autoloops}{este enlace}.
+
+En el primer capítulo de este trabajo se enuncia y demuestra el teorema de aproximación universal, un resultado que caracteriza la capacidad representativa de las redes neuronales. En el segundo capítulo se realiza un estudio de los fundamentos del aprendizaje profundo, describiendo el modelo fundamental, la red prealimentada profunda, y las técnicas que se utilizan para su optimización. En el tercer capítulo se realiza un estudio de las técnicas de aprendizaje profundo para la modelización de datos secuenciales, incluyendo las redes neuronales recurrentes y modelos más actuales. En el cuarto capítulo se repasan técnicas para el aprendizaje de características. Se hace especial hincapié en las técnicas del ámbito del aprendizaje profundo y de entre estas se desarrolla el \textit{autoencoder} variacional, que hace uso de la inferencia variacional para generar nuevos datos. En el sexto capítulo se expone el modelo MusicVAE, basado en el \textit{autoencoder} variacional y cuyo objetivo es la manipulación y generación de melodías musicales. Por último en el séptimo capítulo se desarrolla la herramienta AutoLoops como aplicación de MusicVAE.
+
+De entre las diversas fuentes de información consultadas, aquellas más fundamentales para el trabajo son:
+
+\begin{itemize}
+  \item \textit{Deep Learning}, por Goodfellow, Bengio y Courville. Es la principal referencia en el contenido sobre aprendizaje automático y aprendizaje profundo.
+  \item \textit{Approximation by superpositions of a sigmoidal function}, por Cybenko. Empleado para la demostración del teorema de aproximación universal.
+  \item \textit{Auto-encoding variational bayes}, por Kingma, Diederik y Welling. Contiene la descripción del modelo del \textit{autoencoder} variacional.
+  \item \textit{A hierarchical latent vector model for learning long-term structure in music}, por Roberts, Adam, Engel, Jesse, Raffel, Colin, Hawthorne, Curtis, Eck y Douglas. Desarrolla el modelo MusicVAE.
+\end{itemize}
+
+\endinput

@@ -1,0 +1,34 @@
+% !TeX root = ../libro.tex
+% !TeX encoding = utf8
+
+\chapter{Conclusiones y trabajo futuro}
+
+En este trabajo se ha estudiado la aplicación de las técnicas de aprendizaje profundo a la generación de música, desde los fundamentos teóricos hasta la aplicación práctica mediante un programa para su uso en el proceso de composición real.
+
+Como punto de partida se ha estudiado el teorema de aproximación universal, que establece el poder de representación que tienen las redes neuronales. Se han repasado los resultados previos necesarios para su demostración y realizado la misma, para terminar con otros resultados que generalizan o complementan este.
+
+A continuación se han tratado cuestiones básicas sobre aprendizaje profundo, incluyendo su contextualización dentro del aprendizaje automático, la definición del modelo más simple, la red profunda prealimentada, y los algoritmos necesarios para la optimización de los mismos.
+
+Más adelante se han tratado las técnicas que ofrece el aprendizaje profundo para el tratamiento de secuencias, esencial para el trabajo con música por la naturaleza secuencial de la misma. Se ha introducido el modelo básico para este fin, la red neuronal recurrente, y los modelos más actuales en este ámbito.
+
+Tras esto se han repasado técnicas para el aprendizaje de características, que permiten el tratamiento simplificado de datos de naturaleza compleja como lo son aquellos derivados de la música. Se ha hecho especial hincapié en los modelos de aprendizaje automático y de entre ellos en el \textit{autoencoder} variacional, que cumple también la función de modelo generativo. El estudio de este modelo se ha realizado desde la perspectiva teórica de la inferencia estadística, habiéndose completado con la obtención de la expresión explícita de su ELBO.
+
+Estudiados los fundamentos teóricos se ha introducido un modelo dirigido a la generación de música, el MusicVAE. Se han discutido su estructura y características básicas, así como el proceso de entrenamiento y las funcionalidades que ofrece.
+
+Por último se ha desarrollado una implementación práctica del modelo en una herramienta llamada AutoLoops. La herramienta, basada en la biblioteca de Magenta que funciona como API para el modelo, se ha planteado como una herramienta para la exploración del espacio latente cuyo objetivo es la generación de melodías. Esta herramienta tiene pretensión de ser utilizada en el contexto real de la composición musical, y de hecho ya está siendo aplicada en la creación de obras musicales. Algunas de estas obras pueden encontrarse en \href{https://soundcloud.com/user-860813847/sets/autoloops}{este enlace}.
+
+Con esto se considera que los objetivos iniciales marcados para el trabajo han sido cumplidos. Sin embargo, la realización del mismo deja abiertas varias vías de trabajo futuras:
+
+\begin{itemize}
+\item Inclusión en la herramienta AutoLoops de capacidad para ver y manipular las melodías guardadas.
+\item Mejora del reproductor de sonido de la herramienta, permitiendo cambiar el tempo de reproducción de las melodías y el timbre con el que se reproducen.
+\item Adaptación de la herramienta para su utilización en interpretaciones musicales en directo, permitiendo fijar un tempo y reproducir en bucle la melodía actual a ese tempo, pudiendo además modificarla a la vez.
+\item Adaptación de la herramienta para que pueda ser utilizada como controlador MIDI, para poder así manejar dispositivos  externos directamente desde la herramienta.
+\item Implementación en la herramienta del resto de variantes del modelo MusicVAE, permitiendo así la generación de secuencias de percusión, tríos y melodías de 12 compases.
+\item Implementación de herramientas similares a AutoLoops basadas en otros modelos actuales para facilitar el acceso de artistas a modelos de aprendizaje profundo que permiten nuevas formas de generar y manipular música.
+\end{itemize}
+
+\endinput
+%------------------------------------------------------------------------------------
+% FIN DEL CAPÍTULO.
+%------------------------------------------------------------------------------------

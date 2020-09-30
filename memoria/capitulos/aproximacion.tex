@@ -1,0 +1,180 @@
+% !TeX root = ../libro.tex
+% !TeX encoding = utf8
+
+\chapter{Aproximación por superposición de funciones sigmoidales}\label{ch:aproximacion}
+
+Las redes neuronales, cuya estructura y funcionamiento se explica en \autoref{deeplearning}, son un método para la representación de funciones de variable real $n$-dimensional, $\textbf{x} \in \mathbb{R}^n$, mediante la aplicación sucesiva de transformaciones de la forma $$ \sum_{j=1}^n\alpha_j\sigma(\textbf{y}^T_j\textbf{x} + \theta_j),$$ donde $\textbf{y}_j \in \mathbb{R}^n$ y $\alpha_j$, $\theta_j$ $\in \mathbb{R}$ son fijas. La función de una variable $\sigma$ elegida depende del contexto de la aplicación.
+
+Una de los tipos de funciones $\sigma$ más utilizados es el de las funciones sigmoidales, es decir, aquellas que cumplen $$ \lim_{t \rightarrow - \infty} \sigma(t) = 0 \;\;\; \text{y} \;\;\; \lim_{t \rightarrow + \infty} \sigma(t) = 1,$$ continuas. El objetivo de la sección es demostrar que las funciones de la forma $\sum_{j=1}^n\alpha_j\sigma(\textbf{y}^T_j\textbf{x} + \theta_j)$, aquellas que representan una red neuronal con una única capa oculta de anchura arbitraria, con $\sigma$ sigmoidal y continua son densas en el espacio $C(I^n)$ de las funciones continuas en el $I^n = [0,1]^n$. Este resultado es el llamado teorema de aproximación universal~\cite{cybenko1989approximation} e implica que las redes neuronales con función de activación sigmoidal y al menos una capa profunda pueden aproximar cualquier función de $C(I^n)$. Este resultado no es constructivo, por lo que no proporciona un método para obtener dicha aproximación. Los métodos más comunes para esta tarea serán revisados en capítulos posteriores.
+
+ Previo a la demostración del teorema se repasan algunos resultados necesarios durante dicha demostración. Por último se revisan otros resultados relacionados con la aproximación de funciones mediante redes neuronales.
+
+\section{Definiciones y resultados previos}
+
+En este apartado se realizan algunas definiciones previas y se repasan los dos resultados principales que se aplicarán en la demostración del teorema de aproximación universal: el teorema de Hahn-Banach y el teorema de representación de Riesz.
+
+\begin{definicion}
+Dada una $\sigma$-álgebra $\mathcal{M}$ una \textit{medida con signo} $\mu$ sobre $\mathcal{M}$ es una función de conjunto $\mu: \mathcal{M} \rightarrow [-\infty, +\infty]$ $\sigma$-aditiva.
+\end{definicion}
+
+\begin{definicion}
+Una medida se dice \textit{de Borel} si está definida sobre una $\sigma$-álgebra de Borel, es decir, la engendrada por los abiertos del espacio.
+\end{definicion}
+
+\begin{definicion}
+Una \textit{medida con signo regular de Borel} sobre una $\sigma$-álgebra $\mathcal{M}$ es una medida con signo que cumple $$ \mu(E) = \inf \{ \mu(V) : V \supset E, V \; \text{abierto} \} = \sup \{ \mu(C) : C \subset E, V \; \text{cerrado} \}$$ para todo conjunto de Borel $E \in \mathcal{M}$.
+\end{definicion}
+
+Se denota por $M(I^n)$ al conjunto de medidas finitas con signo regulares de Borel sobre $I^n$.
+
+
+\subsection{Teorema de Hahn-Banach}
+
+Pasamos ahora a recordar uno de los resultados principales que se utilizan en la demostración, el teorema de Hahn-Banach. Se realiza primeramente una definición previa.
+
+\begin{definicion}~\cite{ash2014real} Un \textit{funcional sublineal} en un espacio vectorial $X$ es una aplicación $\varphi:X \rightarrow \mathbb{R}$ que verifica la desigualdad triangular y es homogénea por homotecias, es decir
+$$ \varphi(x+y) \leq \varphi(x) + \varphi(y)$$
+$$ \varphi(rx) = r\varphi(x)$$
+
+para todo $x, y \in X$ y para todo $r \in \mathbb{R}^{+}.$
+\end{definicion}
+
+Con esto podemos ya enunciar el teorema.
+
+\begin{teorema}\label{thm:hahn-banach} Sea $X$ un espacio vectorial y $\varphi$ un funcional sublineal en $X$. Sea $M$ un subespacio de $X$ y $g$ un funcional lineal en $M$, dominado por $\varphi$, es decir, $$ \operatorname{Re}g(y) \leq \varphi(y) \;\;\; \forall y \in M$$
+Entonces existe un funcional lineal $f$ en $X$ que extiende a $g$ y está dominado por $\varphi$, es decir,
+$$ f(y) = g(y) \;\;\; \forall y \in M, \;\;\;\;\operatorname{Re}f(x) \leq \varphi(x) \;\;\; \forall x \in X.$$
+\end{teorema}
+
+La aplicación del teorema no será directa. Utilizaremos un corolario que se demuestra a partir de un teorema que es resultado directo del teorema de Hahn-Banach, el teorema de extensión de Hahn-Banach.
+
+\begin{teorema}\label{thm:extension-hahn-banach} Sea $X$ un espacio normado, $M$ un subespacio de $X$ y $g \in M^*$. Entonces existe $f \in X^*$ tal que $f$ extiende a $g$ y verifica que $\Vert f \Vert = \Vert g \Vert$.
+\end{teorema}
+
+\begin{proof}
+Definiendo $\varphi(x) = \Vert g \Vert \Vert x \Vert$ para todo $x \in X$, $\varphi$ es una seminorma en $X$, y de hecho es una normal salvo en el caso $g = 0$. La continuidad de $g$ implica que $\operatorname{Re}g(y) \leq \vert g(y) \vert \leq \varphi(y)$ para todo $y \in M$. El teorema de Hahn-Banach (\autoref{thm:hahn-banach}) asegura la existencia de un funcional lineal $f$ en $X$ que verifica
+$$f(y) = g(y) \;\;\; \forall y \in M,$$
+$$\vert f(x) \vert \leq \varphi(x) = \Vert g \Vert \Vert x \Vert \;\;\; \forall x \in X. $$ $f \in X^*$ con $\Vert f \Vert \leq \Vert g \Vert$ pero además $f$ extiende a $g$, luego también $\Vert f \Vert \geq \Vert g \Vert$. Por lo tanto $\Vert f \Vert = \Vert g \Vert$.
+
+\end{proof}
+
+A la extensión $f$ se le llama extensión de Hahn-Banach de $g$. Puede ya demostrarse el resultado concreto que se utilizará en la demostración del teorema de aproximación universal.
+
+\begin{corolario}\label{thm:corolario-hb} Sea $X$ un espacio normado, $M$ un subespacio de $X$. Si $x_0 \notin \overline{M}$, existe un $f \in X^*$ tal que $f(x) = 0$ $\forall x \in M$, $f(x_0) = 1$, y $\Vert f \Vert = \frac{1}{d}$, donde $d$ es la distancia de $x_0$ a $M$.
+\end{corolario}
+
+\begin{proof}
+Sea $N = L(M \cup \{x_0\})$ el conjunto de todos los ejementos $y = x + ax_0$ con $x \in M$, $a \in \mathbb{C}$. Como $x \notin \overline{M}$, el valor de $a$ está determinado por el valor de $y$. Se define $f$ sobre $N$ como $f(x+ ax_0) = a$. $f$ es lineal, y veamos que $\Vert f \Vert = \frac{1}{d}$.
+
+$$ \Vert f \Vert = \sup \left\{ \frac{\vert f(y) \vert}{\Vert y \Vert} : y \in N, y \neq 0 \right\} = $$
+$$ \sup \left\{ \frac{\vert a \vert}{\Vert x + ax_0 \Vert} : a \in \mathbb{C}, x \neq 0 \;\; o \;\; a \neq 0 \right\} =$$ $$ \sup \left\{ \frac{\vert a \vert}{\Vert x + ax_0 \Vert} : a \in \mathbb{C}, x \neq 0 \;\; o \;\; a \neq 0 \right\}$$ ya que $f(y) = 0$ cuando $a = 0$. Podemos reescribir
+$$ \frac{\vert a \vert}{\Vert x + ax_0 \Vert} = \frac{1}{\lVert x_0 + \frac{x}{a}\rVert} = \frac{1}{\Vert{x_0} - z \Vert}$$
+para algún $z \in M$. Por lo tanto $\Vert f \Vert = ( \inf \{ \Vert x_0 - z\Vert \} : z \in M)^{-1} = \frac{1}{d}$. Basta aplicar el teorema de extensión de Hahn-Banach (\autoref{thm:extension-hahn-banach}) sobre $f$  para obtener el funcional que se quería en $M$.
+\end{proof}
+
+\subsection{Teorema de representación de Riesz}
+
+El otro resultado fundamental para la demostración del teorema de aproximación universal es el teorema de representación de Riesz. Se realizan primero unas definiciones previas.
+
+\begin{definicion}
+~\cite{ash2014real} Dada $\mu$ una norma con signo sobre la $\sigma$-álgebra $\mathcal{M}$, se define su \textit{variación superior} como $$\mu^+(A) = \sup \{ \mu(B): B \in \mathcal{M}, B \subset A \}. $$
+\end{definicion}
+
+\begin{definicion}
+Dada $\mu$ una norma con signo sobre la $\sigma$-álgebra $\mathcal{M}$, se define su \textit{variación inferior} como $$\mu^-(A) = \inf \{ \mu(B): B \in \mathcal{M}, B \subset A \}. $$
+\end{definicion}
+
+\begin{definicion}
+Dada $\mu$ una norma con signo sobre la $\sigma$-álgebra $\mathcal{M}$, se define su \textit{variación total} como $$\vert \mu \vert (A) = \mu^+(A) + \mu^-(A). $$
+\end{definicion}
+
+Podemos ya enunciar el teorema de representación de Riesz, que será aplicado directamente durante la demostración del teorema de aproximación universal.
+
+\begin{teorema}\label{thm:riesz} ~\cite{rudin1987real} Sea $X$ un espacio de Hausdorff localmente compacto, y sea $T$ un funcional lineal acotado sobre $C_0(X)$. Entonces existe una $\sigma$-álgebra $\mathcal{M}$ en $X$ que contiene todos los conjuntos de Borel en $X$ y existe una única medida con signo regular $\mu$ sobre $\mathcal{M}$ tal que $$ T(f) = \int_X fd\mu$$ para cada $f \in C(X)$. La norma del funcional $T$ es la variación total de $\mu$: $$\Vert T \Vert = \vert \mu \vert (X). $$
+\end{teorema}
+
+\section{Teorema de aproximación universal}
+
+Conociendo los resultados previos puede ya enunciarse y demostrarse el teorema de aproximación universal \cite{cybenko1989approximation}. Para ello se realizará la definición de función discriminatoria y se probará una primera versión del teorema para estas funciones.
+
+\begin{definicion} Una función $\sigma: \mathbb{R} \rightarrow \mathbb{R}$ es \textit{discriminatoria} si, cuando para una medida $\mu \in M(I^n)$ se tiene que $$\int_{I^n} \sigma(\textbf{y}^T \textbf{x} + \theta)d\mu(\textbf{x})= 0$$
+para todo $\textbf{y} \in \mathbb{R}^n$, $\theta \in \mathbb{R}$ implica que $\mu = 0$.
+\end{definicion}
+
+\begin{teorema}\label{thm:discriminatorias} Sea $\sigma$ una función continua discriminatoria. Entonces el conjunto de funciones
+$$S = \left\{ g: g(\textbf{x}) = \sum_{j=1}^k \alpha_j \sigma(\textbf{y}_j^T \textbf{x} + \theta_j) \right\}$$
+es denso en $C(I^n)$, es decir, dada una $f \in C(I^n)$ y $\varepsilon > 0$, existe una $g \in S$ tal que
+$$\left|g(\textbf{x}) - f(\textbf{x})\right| < \varepsilon$$ para todo $\textbf{x} \in I^n$.
+\end{teorema}
+
+\begin{proof}
+$S$ es un subespacio lineal de $C(I^n)$. Afirmemos que $\overline{S} = C(I^n)$.
+
+Si, por el contrario, $ \overline{S} \subsetneq C(I^n)$, aplicando el \autoref{thm:corolario-hb} existe un funcional lineal acotado $F \neq 0$ sobre $C(I^n)$ tal que $$F(\overline{S}) = F(S) = 0.$$
+
+Por el teorema de representación de Riesz (\autoref{thm:riesz}) este funcional lineal es de la forma $$F(h) = \int_{I^n}h(\textbf{x})d\mu(\textbf{x})$$ para alguna medida $\mu \in M(I^n)$ y para todo $h \in C(I^n)$. En particular, como $\sigma(\textbf{y}^T\textbf{x} + \theta) \in \overline{S}$ para todo $y \in \mathbb{R}^n$ y para todo $\theta \in \mathbb{R}$, debe cumplirse que $$\int_{I_n}\sigma(\textbf{y}^T\textbf{x} + \theta)d\mu(\textbf{x}) = 0 $$ para todo $\textbf{y} \in I^n$ y para todo $\theta \in \mathbb{R}$. Puesto que $\sigma$ es discriminatoria, se tiene que $\mu = 0$, lo cual es una contradicción con que $F \neq 0$. Por tanto el subespacio $S$ es denso en $C(I_n)$.
+\end{proof}
+
+Una vez demostrado el teorema para funciones discriminatorias queda ver que las funciones sigmoidales continuas en $I^n$ son discriminatorias. La demostración se realizará para un conjunto de funciones más grande en el que las funciones sigmoidales continuas están incluidas.
+
+\begin{lema}\label{thm:lema-sigmoidal}
+Una función sigmoidal medible y acotada $\sigma : \mathbb{R} \rightarrow \mathbb{R}$ es discriminatoria. En particular, las funciones sigmoidales continuas son discriminatorias.
+\end{lema}
+
+\begin{proof}
+Sea $\sigma_\lambda(\textbf{x}) = \sigma (\lambda (\textbf{y}^T\textbf{x} + \theta) + \phi)$. Entonces, para cualquier $\textbf{x}$, $\textbf{y}$, $\theta$, $\phi$ se tiene que
+
+$$\sigma (\lambda (\textbf{y}^T\textbf{x} + \theta) + \phi) \left\{ \begin{array}{lclcc}
+             \rightarrow 1 &   si  & \textbf{y}^T\textbf{x} + \theta > 0 $ cuando $ \lambda \rightarrow + \infty, \\
+             \\ \rightarrow 0 &   si & \textbf{y}^T\textbf{x} + \theta < 0 $ cuando $ \lambda \rightarrow + \infty, \\
+             \\ = \sigma(\phi) &   si & \textbf{y}^T\textbf{x} + \theta = 0 $ para todo $ \lambda.
+             \end{array}
+   \right.$$
+
+Por lo tanto la función $\sigma_\lambda(\textbf{x}) = \sigma (\lambda (\textbf{y}^T\textbf{x} + \theta) + \phi)$ converge puntualmente a la función
+
+$$\gamma(\textbf{x})= \left\{ \begin{array}{lcl}
+             1 &   si  & \textbf{y}^T\textbf{x} + \theta > 0\\
+             \\ 0 &   si & \textbf{y}^T\textbf{x} + \theta < 0\\
+             \\ \sigma(\phi) &   si & \textbf{y}^T\textbf{x} + \theta = 0
+             \end{array}
+   \right.$$
+
+cuando $\lambda \rightarrow +\infty$.
+
+Supongamos que $\int_{I^n} \sigma(\lambda(\textbf{y}^T\textbf{x} + \theta) + \phi)d\mu(\textbf{x}) = 0$ para una medida $\mu \in M(I^n)$ y comprobemos que $\mu = 0$. Sean $\Pi_{\textbf{y}, \theta} = \{\textbf{x}| \textbf{y}^T\textbf{x} + \theta > 0\}$ y $H_{\textbf{y}, \theta} = \{\textbf{x}| \textbf{y}^T\textbf{x} + \theta > 0\}$, y $\mu \in M(I^n)$. Se tiene que
+
+$$\lim_{\lambda \rightarrow \infty}\int_{I^n} \sigma(\lambda(\textbf{y}^T\textbf{x} + \theta) + \phi)d\mu(\textbf{x}) = \lim_{\lambda \rightarrow \infty}0 = 0$$
+
+y por el teorema de convergencia dominada de Lebesgue
+
+$$ 0 =  \lim_{\lambda \rightarrow \infty}\int_{I^n} \sigma(\lambda(\textbf{y}^T\textbf{x} + \theta) + \phi)d\mu(\textbf{x}) =\int_{I^n}  \lim_{\lambda \rightarrow \infty} \sigma(\lambda(\textbf{y}^T\textbf{x} + \theta) + \phi)d\mu(\textbf{x}) =$$
+
+$$\int_{I^n} \gamma(\textbf{x})d\mu(\textbf{x}) = \sigma(\phi)\mu(\Pi_{\textbf{y}, \theta}) + \mu(H_{\textbf{y}, \theta})$$
+
+para todo $\theta$, $\phi$, $\textbf{y}$. Veamos que si $\mu(\Pi_{\textbf{y}, \theta}) + \mu(H_{\textbf{y}, \theta}) = 0$ para todo $\textbf{y}$ y para todo $\theta$ entonces $\mu = 0$. Fijado $\textbf{y}$, para una función medible acotada $h$ se define el funcional lineal $F$ como $$F(h) = \int_{I^n}h(\textbf{y}^T\textbf{x})d\mu(\textbf{x}).$$
+
+$F$ es un funcional sobre $L^{\infty}(\mathbb{R})$ y acotado por ser $\mu$ una medida con signo finita~\cite{halmos1976measure}. Tomando como $h$ la función indicadora del intervalo $[\theta, +\infty)$ ($h(u) = 1$ si $u \geq \theta$, $h(u) = 0$ si $u < \theta$) se obtiene $$F(h) = \int_{I^n}h(\textbf{y}^T\textbf{x})d\mu(\textbf{x}) = \mu(\Pi_{\textbf{y}, -\theta}) + \mu(H_{\textbf{y}, -\theta}) = 0.$$ El mismo resultado se obtiene tomando la función indicadora en el intervalo $(\theta, + \infty)$. Por la linearidad del operador, $F(h) = 0$ para la función indicadora de cualquier intervalo, y por tanto para cualquier función simple (sumas de funciones indicadoras de intervalos). Puesto que las funciones simples son densas en $L^{\infty}(\mathbb{R})$, $F = 0$.
+
+En particular para las funciones acotadas y medibles $s(u) = sin (m \cdot u)$ y $c(u) = cos(m \cdot u)$ se tiene $$F(s + ic) = \int_{I^n}(\cos(m^Tx) + i \sin(m^Tx))d\mu(x) = \int_{I^n}exp(im^Tx)d\mu(x) = 0  $$
+para todo $m$. Entonces la transformada de Fourier de $\mu$ es nula e igualmente debe serlo $\mu$~\cite{duoandikoetxea2003lecciones}. Por lo tanto $\sigma$ es discriminatoria.
+\end{proof}
+
+Habiendo probado los dos resultados previos, la demostración del teorema de aproximación universal es directa.
+
+\begin{teorema} Sea $\sigma$ una función sigmoidal continua. Entonces el conjunto de funciones $$S = \left\{ g: g(\textbf{x}) = \sum_{j=1}^k \alpha_j \sigma(\textbf{y}_j^T \textbf{x} + \theta_j) \right\}$$
+es denso en $C(I^n)$, es decir, dada una $f \in C(I^n)$ y $\varepsilon > 0$, existe una $g \in S$ tal que
+$$\left|g(\textbf{x}) - f(\textbf{x})\right| < \varepsilon$$ para todo $\textbf{x} \in I^n$.
+\begin{proof} Basta combinar el \autoref{thm:discriminatorias} con \autoref{thm:lema-sigmoidal} teniendo en cuenta que las funciones sigmoidales continuas satisfacen las condiciones del lema.
+\end{proof}
+
+\end{teorema}
+
+\section{Otros resultados de aproximación}
+
+Existen otros resultados sobre la capacidad de representación de las redes neuronales que generalizan y extienden el teorema de representación universal. Kurt Hornik generaliza el resultado para redes con funciones $\sigma$ acotadas y no constantes~\cite{hornik1989multilayer}, posteriormente para funciones Riemann-integrables no polinomiales ~\cite{hornik1991approximation}.
+
+Todos estos resultados contemplan redes neuronales de una sola capa oculta con anchura arbitraria. Existen otros más recientes en los que el factor indeterminado es la profundidad de la red. Una red neuronal con una anchura fijada de $n + 4$ donde $n$ es el tamaño de la entrada y con profundidad arbitraria y función de activación ReLU (definidas en \autoref{unidades-relu}) es también un aproximador universal~\cite{lu2017expressive}.
+
+Ninguno de los resultados mencionados en esta sección es constructivo. En el siguiente capítulo se estudiarán los métodos utilizados para la optimización de los parámetros de las funciones vistas en este.
+\endinput
